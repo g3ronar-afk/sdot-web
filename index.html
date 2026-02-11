@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDOT - Sales Dialogue Optimization Toolkit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1><i class="fas fa-comments"></i> SDOT</h1>
+                <p>Sales Dialogue Optimization Toolkit</p>
+            </div>
+            <div class="login-body">
+                <h2>Welcome Back</h2>
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password">
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" id="remember-me">
+                    <label for="remember-me">Remember me</label>
+                </div>
+                <button id="login-btn" class="btn btn-primary btn-block">Sign In</button>
+                <div class="text-center mt-3">
+                    <a href="#" id="forgot-password">Forgot password?</a>
+                </div>
+            </div>
+            <div class="login-footer">
+                <p>Need an account? Contact your administrator</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard (Hidden Initially) -->
+    <div id="main-dashboard" class="dashboard-container" style="display: none;">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1><i class="fas fa-comments"></i> SDOT</h1>
+                <span class="subtitle">Sales Dialogue Optimization Toolkit</span>
+            </div>
+            <div class="header-right">
+                <span class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="current-user">Loading...</span> | 
+                    <span id="current-role">Loading...</span>
+                </span>
+                <button id="logout-btn" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="dashboard-nav">
+            <div class="nav-tabs" id="main-tabs">
+                <button class="nav-tab active" data-tab="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </button>
+                <button class="nav-tab" data-tab="scripts">
+                    <i class="fas fa-scroll"></i> Scripts
+                </button>
+                <button class="nav-tab" data-tab="objections">
+                    <i class="fas fa-comment-slash"></i> Objections
+                </button>
+                <button class="nav-tab" data-tab="cadence">
+                    <i class="fas fa-calendar-alt"></i> Cadence
+                </button>
+                <button class="nav-tab" data-tab="compliance">
+                    <i class="fas fa-shield-alt"></i> Compliance
+                </button>
+                <button class="nav-tab" data-tab="cards">
+                    <i class="fas fa-sticky-note"></i> Cards
+                </button>
+                <button class="nav-tab" data-tab="performance">
+                    <i class="fas fa-chart-line"></i> Performance
+                </button>
+                <button class="nav-tab admin-only" data-tab="users" style="display: none;">
+                    <i class="fas fa-users-cog"></i> User Management
+                </button>
+            </div>
+        </nav>
+
+        <!-- Content Area -->
+        <main class="dashboard-content">
+            <!-- Dashboard Tab -->
+            <div id="tab-dashboard" class="tab-content active">
+                <div class="tab-header">
+                    <h2><i class="fas fa-tachometer-alt"></i> Performance Overview</h2>
+                </div>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-dials">0</h3>
+                            <p>Total Dials</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-connects">0</h3>
+                            <p>Total Connects</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-appointments">0</h3>
+                            <p>Total Appointments</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="total-conversions">0</h3>
+                            <p>Total Conversions</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Performance Trends</h3>
+                        <canvas id="performance-chart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Conversion Rates</h3>
+                        <canvas id="conversion-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scripts Tab -->
+            <div id="tab-scripts" class="tab-content">
+                <div class="tab-header">
+                    <h2><i class="fas fa-scroll"></i> Script Management</h2>
+                    <button class="btn btn-primary" id="add-script-btn">
+                        <i class="fas fa-plus"></i> Add Script
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Persona</th>
+                                <th>Created By</th>
+                                <th>Date Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scripts-table-body">
+                            <!-- Scripts will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Objections Tab -->
+            <div id="tab-objections" class="tab-content">
+                <div class="tab-header">
+                    <h2><i class="fas fa-comment-slash"></i> Objection Handling</h2>
+                    <button class="btn btn-primary" id="add-objection-btn">
+                        <i class="fas fa-plus"></i> Add Objection
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Objection</th>
+                                <th>Response</th>
+                                <th>Created By</th>
+                                <th>Date Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="objections-table-body">
+                            <!-- Objections will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Performance Tab -->
+            <div id="tab-performance" class="tab-content">
+                <div class="tab-header">
+                    <h2><i class="fas fa-chart-line"></i> Performance Tracking</h2>
+                    <button class="btn btn-primary" id="add-performance-btn">
+                        <i class="fas fa-plus"></i> Add Performance
+                    </button>
+                    <button class="btn btn-success" id="export-performance-btn">
+                        <i class="fas fa-file-export"></i> Export CSV
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Dials</th>
+                                <th>Connects</th>
+                                <th>Appointments</th>
+                                <th>Conversions</th>
+                                <th>Created By</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="performance-table-body">
+                            <!-- Performance data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- User Management Tab -->
+            <div id="tab-users" class="tab-content">
+                <div class="tab-header">
+                    <h2><i class="fas fa-users-cog"></i> User Management</h2>
+                    <button class="btn btn-primary" id="add-user-btn">
+                        <i class="fas fa-user-plus"></i> Add User
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Date Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <!-- Users will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Other Tabs (Similar Structure) -->
+            <div id="tab-cadence" class="tab-content">Cadence Management</div>
+            <div id="tab-compliance" class="tab-content">Compliance Templates</div>
+            <div id="tab-cards" class="tab-content">Flash Cards</div>
+        </main>
+    </div>
+
+    <!-- Modal for Adding/Editing -->
+    <div id="modal-overlay" class="modal-overlay" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Modal Title</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Dynamic content will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-cancel">Cancel</button>
+                <button class="btn btn-primary modal-save">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

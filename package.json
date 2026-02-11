@@ -1,0 +1,24 @@
+{
+  "name": "sdot-web",
+  "version": "1.0.0",
+  "description": "Sales Dialogue Optimization Toolkit - Web Version",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"No tests specified\"",
+    "build": "echo \"No build step required\""
+  },
+  "keywords": [
+    "sdot",
+    "sales",
+    "optimization",
+    "toolkit",
+    "virtual-assistant"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "engines": {
+    "node": "18.x"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

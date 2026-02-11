@@ -1,0 +1,16 @@
+{
+  "name": "sdot-functions",
+  "version": "1.0.0",
+  "description": "SDOT Netlify Functions",
+  "main": "api.js",
+  "dependencies": {
+    "sqlite3": "^5.1.6",
+    "sqlite": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^2.4.0"
+  }
+}
