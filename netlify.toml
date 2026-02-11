@@ -1,7 +1,10 @@
-﻿[build]
+[build]
   command = "echo 'No build command required'"
   publish = "."
   functions = "functions"
+
+[build.environment]
+  NODE_VERSION = "20.18.0"  # ← QUOTES ARE CRITICAL!
 
 [[redirects]]
   from = "/api/*"
