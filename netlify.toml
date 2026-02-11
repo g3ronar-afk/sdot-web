@@ -1,10 +1,10 @@
 [build]
-  command = "echo 'No build command required'"
+  command = "npm run build"
   publish = "."
   functions = "functions"
 
 [build.environment]
-  NODE_VERSION = "20.18.0"  # ← QUOTES ARE CRITICAL!
+  NODE_VERSION = "20.18.0"
 
 [[redirects]]
   from = "/api/*"
