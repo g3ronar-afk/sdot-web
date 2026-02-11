@@ -1,21 +1,6 @@
-﻿{
-  "name": "sdot-web",
-  "version": "1.0.0",
-  "description": "Sales Dialogue Optimization Toolkit",
-  "main": "index.html",
-  "scripts": {
-    "build": "echo 'No build step required'",
-    "postinstall": "cd functions && npm install sqlite3 sqlite bcryptjs jsonwebtoken uuid @netlify/functions"
-  },
-  "dependencies": {
-    "@netlify/functions": "^2.6.0",
-    "sqlite3": "^5.1.7",
-    "sqlite": "^5.1.1",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2",
-    "uuid": "^9.0.1"
-  },
-  "engines": {
-    "node": "20.x"
-  }
+"scripts": {
+  "build": "echo 'No build step required'",
+  "prebuild": "npm rebuild sqlite3 --build-from-source",
+  "postbuild": "cp -r node_modules/sqlite3 functions/node_modules/ 2>/dev/null || :",
+  "netlify-build": "npm install --production && npm run prebuild"
 }

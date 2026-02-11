@@ -5,6 +5,13 @@
 
 [build.environment]
   NODE_VERSION = "20.18.0"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["sqlite3", "sqlite"]
+  included_files = ["node_modules/sqlite3/**", "node_modules/sqlite/**"]
+  directory = "functions"
 
 [[redirects]]
   from = "/api/*"
